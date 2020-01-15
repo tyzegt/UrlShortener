@@ -1,0 +1,9 @@
+﻿@model UrlShortener.Web.Models.NewLinkViewModel
+
+<h2>Добавить ссылку</h2>
+
+<form asp-action="NewLink" asp-controller="Home">
+    <input asp-for="LinkToAdd" />
+    <div class="validation" asp-validation-summary="All"></div>
+    <button type="submit">Дбавить</button>
+</form>

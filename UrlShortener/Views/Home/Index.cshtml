@@ -1,0 +1,38 @@
+﻿@model IEnumerable<UrlShortener.Web.DbModels.Link>
+
+<h1>Добро пожаловать!</h1>
+<div class="validation" asp-validation-summary="All"></div>
+
+<a class="btn btn-primary" asp-action="NewLink" asp-controller="Home">Добавить ссылку</a>
+
+@{
+    var shortUrlBase = $"{Context.Request.Scheme}://{Context.Request.Host}/";
+    @if (Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Длинный Url</td>
+                    <td>Короткий Url</td>
+                    <td>Дата создания</td>
+                    <td>Количество переходов</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href="@item.Url" target="_blank">@item.Url</a></td>
+                        <td><a href="@shortUrlBase@item.Key" target="_blank">@shortUrlBase@item.Key</a></td>
+                        <td>@item.CreationDate</td>
+                        <td>@item.ClicksCount</td>
+                        <td><a asp-action="DeleteLink" asp-controller="Home" asp-route-key="@item.Key">Удалить</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } else
+    {
+        <h3>Вы ещё не добавили ни одной ссылки!<br />Нажмите на кнопку "Добавить ссылку"</h3>
+    }
+}
